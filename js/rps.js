@@ -3,7 +3,28 @@ const COMPUTER_WINS = 2;
 const DRAW = 0;
 
 console.log("Rock Paper Scissors:\nWorld Championship Edition")
-playRound();
+playGame(5);
+
+function playGame(numberOfRounds) {
+  let playerScore = 0;
+  let computerScore = 0;
+
+  for (let i = 1; i <= numberOfRounds; i++) {
+    console.group(`Game ${i}:`);
+    switch (playRound()) {
+      case PLAYER_WINS:
+        playerScore++;
+        break;
+      case COMPUTER_WINS:
+        computerScore++;
+        break;
+      default:
+        break;
+    }
+    console.log(`Player: ${playerScore}\nComputer: ${computerScore}`);
+    console.groupEnd();
+  }
+}
 
 function checkForWin(playerOneChoice, playerTwoChoice) {
   return (((playerOneChoice === "rock") && (playerTwoChoice === "scissors"))
