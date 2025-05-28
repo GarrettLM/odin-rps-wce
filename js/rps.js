@@ -33,11 +33,12 @@ function displayRoundResult(roundResult) {
   roundResultView.textContent = roundResult;
 }
 
-console.log("Rock Paper Scissors:\nWorld Championship Edition")
-
 function playGame(playerChoice) {
-  console.group(`Game ${roundNum++}:`);
-  switch (playRound(playerChoice, getComputerChoice())) {
+  let cpuChoice = getComputerChoice();
+  displayChoice("player", playerChoice);
+  displayChoice("cpu", cpuChoice);
+
+  switch (playRound(playerChoice, cpuChoice)) {
     case ROUND_WINNER_PLAYER:
       playerScore++;
       displayRoundResult("Player");
@@ -52,9 +53,6 @@ function playGame(playerChoice) {
     default:
       break;
   }
-
-  console.log(`Player: ${playerScore}\nComputer: ${computerScore}`);
-  console.groupEnd();
 }
 
 function checkForWin(playerOneChoice, playerTwoChoice) {
@@ -64,48 +62,17 @@ function checkForWin(playerOneChoice, playerTwoChoice) {
 }
 
 function playRound(playerChoice, computerChoice) {
-  displayChoice("player", playerChoice);
-  displayChoice("cpu", computerChoice);
-
   if (checkForWin(playerChoice, computerChoice)) {
-    console.log("Player wins!");
     return ROUND_WINNER_PLAYER;
   } else if (checkForWin(computerChoice, playerChoice)) {
-    console.log("Player loses...");
     return ROUND_WINNER_COMPUTER;
   } else {
-    console.log("Draw...");
     return ROUND_DRAW;
   }
 }
 
 function getRandomInteger(number) {
   return Math.floor(Math.random() * number);
-}
-
-function validatePlayerChoice(playerChoice) {
-  if (playerChoice === null) {
-    return "";
-  }
-
-  playerChoice = playerChoice.toLowerCase();
-  if ((playerChoice === "rock")
-   || (playerChoice === "paper")
-   || (playerChoice === "scissors")) {
-    return playerChoice;
-  }
-
-  return "";
-}
-
-function getPlayerChoice() {
-  let playerChoice;
-  do {
-    playerChoice = prompt("Rock, paper, scissors! SHOOT!");
-    playerChoice = validatePlayerChoice(playerChoice);
-  } while (playerChoice === "");
-
-  return playerChoice;
 }
 
 function getComputerChoice() {
