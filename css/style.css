@@ -1,21 +1,59 @@
 * {
-  color: #f30a3f;
-  background-color: #725ef7;
+  /*color: #f30a3f;
+  background-color: #725ef7;*/
+  color: #dc2626;
+  background-color: #3b82f6; /*#1e3a8a;*/
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 50px;
+  margin-bottom: 0px;
+}
+
+h2 {
+  font-size: 36px;
 }
 
 .btn-container {
-  width: 300px;
-  margin: 0 auto;
+  /*width: 300px;
+  margin: 0 auto;*/
 }
 
 .rps-btn {
+  background-color: #dc2626;
+  border-radius: 10px;
+  border: none;
+  color: #1e40af;
+  font-size: 20px;
   height: 90px;
   width: 90px;
-  background-color: white;
+  margin: 10px;
 }
 
-.results-view {
-  width: 300px;
-  background-color: white;
-  margin: 10 auto;
+.round-result-view {
+  font-size: 36px;
+}
+
+.game-result-view {
+  font-size: 50px;
+}
+
+.choice-view {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  font-size: 20px;
+}
+
+.scoreboard {
+  display: flex;
+  font-size: 24px;
+  justify-content: space-around;
+  width: 50%;
 }
