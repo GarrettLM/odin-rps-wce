@@ -2,7 +2,7 @@ const ROUND_WINNER_PLAYER = 1;
 const ROUND_WINNER_COMPUTER = 2;
 const ROUND_DRAW = 0;
 
-const NUMBER_OF_ROUNDS = 5;
+const WINS_FOR_VICTORY = 5;
 
 let playerScore = 0;
 let computerScore = 0;
@@ -33,7 +33,20 @@ function displayRoundResult(roundResult) {
   roundResultView.textContent = roundResult;
 }
 
+function displayScores() {
+  let playerScoreView = document.querySelector(".player-score-view");
+  playerScoreView.textContent = `Player: ${playerScore}`;
+  let cpuScoreView = document.querySelector(".cpu-score-view");
+  cpuScoreView.textContent = `CPU: ${computerScore}`;
+}
+
+function displayVictoryMessage(message) {
+  let gameResultView = document.querySelector(".game-result-view");
+  gameResultView.textContent = message;
+}
+
 function playGame(playerChoice) {
+  displayVictoryMessage("");
   let cpuChoice = getComputerChoice();
   displayChoice("player", playerChoice);
   displayChoice("cpu", cpuChoice);
@@ -53,6 +66,20 @@ function playGame(playerChoice) {
     default:
       break;
   }
+
+  displayScores();
+  if (playerScore >= WINS_FOR_VICTORY) {
+    displayVictoryMessage("Congratulation!\nYou are the world CHAMPION!!!");
+    resetGame();
+  } else if (computerScore >= WINS_FOR_VICTORY) {
+    displayVictoryMessage("CPU wins.\nBetter luck next year...");
+    resetGame();
+  }
+}
+
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
 }
 
 function checkForWin(playerOneChoice, playerTwoChoice) {
