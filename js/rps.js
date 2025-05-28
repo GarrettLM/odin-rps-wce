@@ -2,28 +2,44 @@ const PLAYER_WINS = 1;
 const COMPUTER_WINS = 2;
 const DRAW = 0;
 
+const NUMBER_OF_ROUNDS = 5;
+
+let playerScore = 0;
+let computerScore = 0;
+let roundNum = 1;
+
+setEventHandlersOnButtons();
+
+function setEventHandlersOnButtons() {
+  setEventHandlerOnButton("rock");
+  setEventHandlerOnButton("paper");
+  setEventHandlerOnButton("scissors");
+}
+
+function setEventHandlerOnButton(choice) {
+  let btn = document.querySelector(`.${choice}-btn`);
+  btn.addEventListener("click", () => {
+    playGame(choice);
+  });
+}
+
 console.log("Rock Paper Scissors:\nWorld Championship Edition")
-playGame(5);
 
-function playGame(numberOfRounds) {
-  let playerScore = 0;
-  let computerScore = 0;
-
-  for (let i = 1; i <= numberOfRounds; i++) {
-    console.group(`Game ${i}:`);
-    switch (playRound()) {
-      case PLAYER_WINS:
-        playerScore++;
-        break;
-      case COMPUTER_WINS:
-        computerScore++;
-        break;
-      default:
-        break;
-    }
-    console.log(`Player: ${playerScore}\nComputer: ${computerScore}`);
-    console.groupEnd();
+function playGame(playerChoice) {
+  console.group(`Game ${roundNum++}:`);
+  switch (playRound(playerChoice, getComputerChoice)) {
+    case PLAYER_WINS:
+      playerScore++;
+      break;
+    case COMPUTER_WINS:
+      computerScore++;
+      break;
+    default:
+      break;
   }
+
+  console.log(`Player: ${playerScore}\nComputer: ${computerScore}`);
+  console.groupEnd();
 }
 
 function checkForWin(playerOneChoice, playerTwoChoice) {
@@ -32,20 +48,7 @@ function checkForWin(playerOneChoice, playerTwoChoice) {
     || ((playerOneChoice === "scissors") && (playerTwoChoice === "paper")));
 }
 
-function playRound() {
-  let playerChoice = getPlayerChoice();
-
-  while (playerChoice === null || playerChoice === "") {
-    console.warn("Player choice undefined");
-    playerChoice = getPlayerChoice();
-  }
-
-  let computerChoice = getComputerChoice();
-  if (computerChoice === undefined) {
-    console.error(computerChoice);
-    return;
-  }
-
+function playRound(playerChoice, computerChoice) {
   console.log("Player: " + playerChoice);
   console.log("Computer:" + computerChoice);
 
