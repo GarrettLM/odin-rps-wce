@@ -1,6 +1,6 @@
-const PLAYER_WINS = 1;
-const COMPUTER_WINS = 2;
-const DRAW = 0;
+const ROUND_WINNER_PLAYER = 1;
+const ROUND_WINNER_COMPUTER = 2;
+const ROUND_DRAW = 0;
 
 const NUMBER_OF_ROUNDS = 5;
 
@@ -23,16 +23,31 @@ function setEventHandlerOnButton(choice) {
   });
 }
 
+function displayChoice(player, choice) {
+  let choiceView = document.querySelector(`.${player}-choice-view`);
+  choiceView.textContent = choice;
+}
+
+function displayRoundResult(roundResult) {
+  let roundResultView = document.querySelector(".round-result-view");
+  roundResultView.textContent = roundResult;
+}
+
 console.log("Rock Paper Scissors:\nWorld Championship Edition")
 
 function playGame(playerChoice) {
   console.group(`Game ${roundNum++}:`);
-  switch (playRound(playerChoice, getComputerChoice)) {
-    case PLAYER_WINS:
+  switch (playRound(playerChoice, getComputerChoice())) {
+    case ROUND_WINNER_PLAYER:
       playerScore++;
+      displayRoundResult("Player");
       break;
-    case COMPUTER_WINS:
+    case ROUND_WINNER_COMPUTER:
       computerScore++;
+      displayRoundResult("CPU");
+      break;
+    case ROUND_DRAW:
+      displayRoundResult("Draw...");
       break;
     default:
       break;
@@ -49,18 +64,18 @@ function checkForWin(playerOneChoice, playerTwoChoice) {
 }
 
 function playRound(playerChoice, computerChoice) {
-  console.log("Player: " + playerChoice);
-  console.log("Computer:" + computerChoice);
+  displayChoice("player", playerChoice);
+  displayChoice("cpu", computerChoice);
 
   if (checkForWin(playerChoice, computerChoice)) {
     console.log("Player wins!");
-    return PLAYER_WINS;
+    return ROUND_WINNER_PLAYER;
   } else if (checkForWin(computerChoice, playerChoice)) {
     console.log("Player loses...");
-    return COMPUTER_WINS;
+    return ROUND_WINNER_COMPUTER;
   } else {
     console.log("Draw...");
-    return DRAW;
+    return ROUND_DRAW;
   }
 }
 
